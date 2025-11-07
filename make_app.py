@@ -4,6 +4,7 @@ import plotly.express as px
 import pandas as pd
 from sklearn.cluster import KMeans
 import streamlit as st
+from streamlit_geolocation import streamlit_geolocation
 
 
     #### APP TITLE###
@@ -14,14 +15,15 @@ st.write("Find the restaurants near you!")
 @st.cache_data(show_spinner="Getting your location...")
 def get_user_location():
     try:
-        ### this uses the IP address to get the users location.###
-        response = requests.get("https://ipinfo.io/json")
-        data = response.json()
-        loc = data['loc'].split(',')
-        return float(loc[0]), float(loc[1])
+        loc = streamlit_geolocation()
+        if loc and "latitude" in loc and "longitude" in loc:
+            return float(loc["latitude"]), float(loc["longitude"])
+        else:
+            st.warning("Unable to access your exact location. Using default coordinates.")
+            return 18.4874, 73.8197
     except Exception as e:
         st.error(f"Couldn't fetch your location due to error: {e}")
-        return 18.4874 , 73.8197
+        return 18.4874, 73.8197
 
     ## Get the restaurants in the given city##
 @st.cache_data(show_spinner="Hold on! Looking for restaurants in your city..")
