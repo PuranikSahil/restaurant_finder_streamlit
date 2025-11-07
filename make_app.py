@@ -22,7 +22,7 @@ def get_user_location():
             st.warning("Unable to access your exact location. Using default coordinates.")
             return 18.4874, 73.8197
     except Exception as e:
-        st.error(f"Press the ⊕ icon to enable location access.")
+        st.error(f"Press the above icon to enable location access.")
         return 18.4874, 73.8197
 
 
