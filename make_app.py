@@ -11,8 +11,8 @@ from streamlit_geolocation import streamlit_geolocation
 st.title("Restaurant Finder 🍜🍛")
 st.write("Find the restaurants near you!")
 
-    ## Get user location and just save it for the rest of the time ##
-@st.cache_data(show_spinner="Getting your location...")
+
+## Get user location and just save it for the rest of the time ##
 def get_user_location():
     try:
         loc = streamlit_geolocation()
@@ -24,6 +24,7 @@ def get_user_location():
     except Exception as e:
         st.error(f"Couldn't fetch your location due to error: {e}")
         return 18.4874, 73.8197
+
 
     ## Get the restaurants in the given city##
 @st.cache_data(show_spinner="Hold on! Looking for restaurants in your city..")
